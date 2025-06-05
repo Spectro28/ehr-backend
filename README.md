@@ -82,17 +82,5 @@ El servidor se ejecuta por defecto en `http://localhost:3000`. Todas las rutas d
 - `migrations/`: Migraciones de la base de datos
 - `services/`: Servicios auxiliares (por ejemplo, email)
 
-## Despliegue con PM2
-Puedes usar PM2 para ejecutar el servidor en producción:
-```sh
-npm install -g pm2
-# Si tienes un script de build, ejecuta:
-npm run build
-# Inicia el servidor normalmente:
-npm start
-# O usa PM2 para gestionar el proceso:
-pm2 start ecosystem.config.js
-```
-
 ## Licencia
 MIT
