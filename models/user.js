@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         active: {
             type: DataTypes.BOOLEAN,
-            defaultValue: true
+            defaultValue: false
         },
         cedula: {
           type: DataTypes.STRING,
