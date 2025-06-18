@@ -217,3 +217,27 @@ exports.getPatientById = async (req, res) => {
     });
   }
 };
+
+exports.getPatientByIdentification = async (req, res) => {
+  try {
+    const { identification, typeIdentification } = req.params;
+    const patient = await Patient.findOne({
+      where: {
+        [typeIdentification]: identification
+      },
+    });
+    
+    if (!patient) {
+      return res.status(404).json({ message: 'Paciente no encontrado' });
+    }
+
+    res.json(patient);
+  } catch (error) {
+    console.error('Error detallado en getPatientById:', error);
+    res.status(400).json({ 
+      message: 'Error al obtener el paciente',
+      error: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    });
+  }
+};

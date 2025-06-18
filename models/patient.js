@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-     empresa: {
+    empresa: {
           type: DataTypes.STRING,
           allowNull: false,
           defaultValue: 'Sin empresa'
