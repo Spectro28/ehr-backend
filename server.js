@@ -13,6 +13,7 @@ const evolucionRoutes = require('./routes/evolucionRoutes');
 const prescripcionRoutes = require('./routes/prescripcionRoutes');
 const ubicacionRoutes = require('./routes/ubicacionRoutes');
 const catalogosRoutes = require('./routes/catalogosRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -35,6 +36,7 @@ app.use('/api/vital-signs', vitalSignsRoutes);
 app.use('/api/evoluciones', evolucionRoutes);
 app.use('/api/prescripciones', prescripcionRoutes);
 app.use('/api/catalogos', catalogosRoutes);
+app.use('/api/users', userRoutes);
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Servidor funcionando correctamente' });
 });

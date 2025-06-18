@@ -32,7 +32,7 @@ router.get('/users', authenticateToken, async (req, res) => {
 });
 
 // Crear nuevo usuario
-router.post('/users/create', async (req, res) => {
+router.post('/create', async (req, res) => {
   try {
       const { username, password, role, especialidad, cedula, email, empresa } = req.body;
       
@@ -99,7 +99,7 @@ router.post('/users/create', async (req, res) => {
   }
 });
 // Actualizar estado de usuario
-router.patch('/users/:id/toggle-status', authenticateToken, async (req, res) => {
+router.patch('/:id/toggle-status', authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
     const user = await db.User.findByPk(id);

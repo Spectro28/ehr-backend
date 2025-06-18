@@ -1,14 +1,17 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+const db = require('../models');
 const empresasPermitidas = ['CARDIOVASC', 'INVITROMED', 'Empresa 3'];
+const User = db.User;
+
 exports.register = async (req, res) => {
+
     try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
-      const { username, role, especialidad, empresa } = req.body; // Agregamos especialidad
-  
+      const { username, role, especialidad, empresa, email , identification} = req.body; // Agregamos especialidad
+      
       // Validaciones
-    if (!username || !password || !role || !empresa) {
+    if (!username || !role || !empresa || !email ||!identification) {
       return res.status(400).json({ message: 'Todos los campos obligatorios deben estar completos' });
     }
 
@@ -23,7 +26,6 @@ exports.register = async (req, res) => {
     if (!empresasPermitidas.includes(empresa)) {
       return res.status(400).json({ message: 'Empresa no válida' });
     }
-
       // Validación de especialidad válida para doctores
       if (role === 'doctor') {
         const especialidadesValidas = [
@@ -45,11 +47,14 @@ exports.register = async (req, res) => {
       }
   
       const user = await User.create({
+        id:12, 
         username,
         password: hashedPassword,
         role,
         especialidad: role === 'doctor' ? especialidad : null, // Solo guardamos especialidad para doctores
-        empresa
+        empresa,
+        email,
+        cedula: identification
       });
   
       res.status(200).json({ 
@@ -59,7 +64,8 @@ exports.register = async (req, res) => {
           username: user.username,
           role: user.role,
           especialidad: user.especialidad,
-          empresa: user.empresa
+          empresa: user.empresa,
+          email: user.email
         }
       });
     } catch (error) {
@@ -81,7 +87,7 @@ exports.register = async (req, res) => {
         return res.status(401).json({ message: 'Credenciales incorrectas.' });
       }
   
-      const validRoles = ['administrador', 'doctor', 'secretaria', 'enfermera'];
+      const validRoles = ['administrador', 'doctor', 'secretaria', 'enfermera', 'paciente'];
       if (!validRoles.includes(user.role)) {
         return res.status(403).json({ 
           message: 'Los roles válidos son: administrador, doctor, secretaria, enfermera' 
