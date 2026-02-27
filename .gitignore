@@ -1,7 +1,7 @@
 # Dependencias
 node_modules/
 
-# Variables de entorno (¡importante, no subir credenciales!)
+# Variables de entorno 
 .env
 .env.local
 .env.production
@@ -21,4 +21,5 @@ Thumbs.db
 
 # Editor
 .vscode/
+
 .idea/
